@@ -10,16 +10,16 @@
     <input type="text" class="form-control" id="title" name="title">
   </div>
   <div class="mb-3">
-    <label for="desc" class="form-label">Description</label>
-    <textarea class="form-control" id="desc" rows="3" name="desc"></textarea>
+    <label for="description" class="form-label">Description</label>
+    <textarea class="form-control" id="description" rows="3" name="description"></textarea>
   </div>
   <div class="mb-3">
-    <label for="creator" class="form-label">Post Creator</label>
-    <select class="form-select" aria-label="Default select example" id="creator" name="creator">
+    <label for="post_creator" class="form-label">Post Creator</label>
+    <select class="form-select" aria-label="Default select example" id="post_creator" name="post_creator">
         <option value="none"></option>
-        <option value="reem">Reem</option>
-        <option value="rania">Rania</option>
-        <option value="mahmoud">Mahmoud</option>
+        @foreach($users as $user)
+        <option value="{{$user->id}}">{{$user->name}}</option>
+        @endforeach
     </select>
   </div>
   <button type="submit" class="btn btn-primary">Post</button>
