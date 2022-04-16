@@ -20,18 +20,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index')->middleware('auth');
 
-Route::get('/posts/create',[PostController::class, 'create'])->name('posts.create');
+Route::get('/posts/create',[PostController::class, 'create'])->name('posts.create')->middleware('auth');
 
-Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+Route::post('/posts', [PostController::class, 'store'])->name('posts.store')->middleware('auth');
 
 //show route after posts accept any params .. dynamic routes 
 
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');   
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show')->middleware('auth');   
 
-Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
-Route::patch('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit')->middleware('auth');
+Route::patch('/posts/{post}', [PostController::class, 'update'])->name('posts.update')->middleware('auth');
 
 
 
@@ -47,3 +47,7 @@ Route::patch('/comments/{comment}', [CommentController::class, 'update'])->name(
 
 Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
