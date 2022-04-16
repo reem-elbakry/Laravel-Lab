@@ -28,17 +28,17 @@
           <td>{{$post->user ? $post->user->name : 'Not found'}}</td>
           <td>{{$post->created_at->format('Y-m-d')}}</td>
           <td>
-          <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
           <a href="{{route('posts.show', ['post' => $post['id']])}}" class="btn btn-primary m-1">View</a>
           <form method="POST" action="{{route('posts.edit', ['post' => $post['id']])}}" class="form-inline">
             @csrf
             @method('get')
             <button type="submit" class="btn btn-warning m-1">Edit</button>
           </form >
-          <form method="POST" action="{{route('posts.destroy', ['post' => $post['id']])}}" class="form-inline">
+          <form method="POST" action="{{route('posts.destroy', ['post' => $post['id']])}}" class="form-inline" onSubmit=" return confirm('Delete the post akeed!')">
             @csrf
             @method('delete')
-            <button type="submit" class="btn btn-danger m-1" onClick="confirm('Delete the post akeed!')">Delete</button>
+            <button type="submit" class="btn btn-danger m-1">Delete</button>
           </form>
         </div>
           </td>
@@ -47,6 +47,12 @@
       </tbody>
     </table>
   </div>
+  <div>
 </div>
+{{$posts->links()}}
+
+</div>
+
+
 @endsection
 

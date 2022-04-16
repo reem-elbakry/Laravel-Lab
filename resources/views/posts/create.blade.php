@@ -2,7 +2,9 @@
 @section('title') 
   create post
 @endsection
+
 @section('content')
+
 <form class="m-5" method="POST" action="{{route('posts.store')}}">
 @csrf
   <div class="mb-3">
