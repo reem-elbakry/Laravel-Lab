@@ -17,6 +17,7 @@
           <th scope="col">Title</th>
           <th scope="col">Posted By</th>
           <th scope="col">Created At</th>
+          <th scope="col">Slug</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
@@ -27,6 +28,7 @@
           <td>{{$post->title}}</td>
           <td>{{$post->user ? $post->user->name : 'Not found'}}</td>
           <td>{{$post->created_at->format('Y-m-d')}}</td>
+          <td>{{$post->slug}}</td>
           <td>
         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
           <a href="{{route('posts.show', ['post' => $post['id']])}}" class="btn btn-primary m-1">View</a>
