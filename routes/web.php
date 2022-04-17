@@ -26,6 +26,7 @@ Route::get('/posts/create',[PostController::class, 'create'])->name('posts.creat
 
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store')->middleware('auth');
 
+
 //show route after posts accept any params .. dynamic routes 
 
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show')->middleware('auth');   

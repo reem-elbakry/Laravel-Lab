@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Comment;
 use App\Http\Requests\FormPostRequest;
+use App\Jobs\PruneOldPostsJob;
 
 
 class PostController extends Controller
@@ -14,7 +15,8 @@ class PostController extends Controller
     
     public function index(){
 
-        $posts = Post::paginate(3);   //colletion 
+        $posts = Post::paginate(1);   //colletion 
+        PruneOldPostsJob::dispatch($posts)->delay(now()->addMinutes(10));
         return view('posts.index', ["posts"=>$posts]);
 
     }
@@ -35,7 +37,6 @@ class PostController extends Controller
     public function store(FormPostRequest $request){
 
         //request() return obj which has methods on it >> all() ..
-
         $data = request()->all();
         Post::create([
                 'title' => $data['title'],

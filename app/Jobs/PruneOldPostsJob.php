@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Post;
 
 class PruneOldPostsJob implements ShouldQueue
 {
@@ -18,9 +19,11 @@ class PruneOldPostsJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    protected $post;
+
+    public function __construct(Post $post)
     {
-        //
+        $this->post = $post;
     }
 
     /**
@@ -30,6 +33,10 @@ class PruneOldPostsJob implements ShouldQueue
      */
     public function handle()
     {
-        //
+       Post::where('created_at', '>', now()->subMinute())->chunck(2, function($post){      //get....
+            $post->each(function($item){
+                $item->delete();
+            });
+       } );              
     }
 }
