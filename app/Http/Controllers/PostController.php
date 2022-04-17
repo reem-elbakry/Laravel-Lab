@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Comment;
-use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\FormPostRequest;
 
 
 class PostController extends Controller
@@ -32,7 +32,7 @@ class PostController extends Controller
         return view('posts.create', ["users"=>$users]);
     }
     
-    public function store(StorePostRequest $request){
+    public function store(FormPostRequest $request){
 
         //request() return obj which has methods on it >> all() ..
 
@@ -53,7 +53,7 @@ class PostController extends Controller
        
     }
 
-    public function update($id){
+    public function update($id, FormPostRequest $request){
 
         $data = request()->all();
         Post::where('id', $id)

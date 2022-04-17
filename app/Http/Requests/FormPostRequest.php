@@ -3,8 +3,13 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\User;
+use App\Models\Post;
+use Illuminate\Validation\Rule;
 
-class StorePostRequest extends FormRequest
+
+
+class FormPostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +28,12 @@ class StorePostRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
-            'title' => ['required', 'min:3'],
-            'description' => ['required', 'min:5'],
-            // 'creator' => ['required'],
+            'title' => ['required', 'unique:posts,title,'.$this->title.',title', 'min:3'],
+            'description' => ['required', 'min:10'],
+            'post_creator' => ['exists:App\Models\User,id'],
+            
         ];
     }
 
@@ -40,7 +47,6 @@ public function messages()
     return [
         'title.required' => 'customized message, title is required!',
         'description.required' => 'customized message, description is required!',
-        // 'creator.required' => 'customized message, creator is required!',
     ];
 }
 }
