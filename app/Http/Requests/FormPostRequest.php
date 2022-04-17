@@ -42,11 +42,5 @@ class FormPostRequest extends FormRequest
  *
  * @return array
  */
-public function messages()
-{
-    return [
-        'title.required' => 'customized message, title is required!',
-        'description.required' => 'customized message, description is required!',
-    ];
-}
+
 }
