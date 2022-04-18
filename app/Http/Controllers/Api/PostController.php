@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Http\Requests\FormPostRequest;
+
 
 class PostController extends Controller
 {
@@ -15,17 +17,29 @@ class PostController extends Controller
 
     public function show($postId){
 
-        return  Post::findOrFail($postId);
+        $post = Post::findOrFail($postId);
+
+        return [
+            "title" => $post->title,    ///not tight key
+        ] ;
     }
 
 
-    public function store(){
+    public function store(FormPostRequest $request){
 
-        if(request()->header('Accept') && request()->header('Accept') == 'application/pdf'){
-            return 'pdf response';
-        }
-     return 'we are in store';
+        // if(request()->header('Accept') && request()->header('Accept') == 'application/pdf'){
+        //     return 'pdf response';
+        // }
 
+        $data = request()->all();
+
+        $post = Post::create([
+                    'title' => $data['title'],
+                    'description' => $data['description'],
+                    'user_id' => $data['post_creator'],  //value of option is user id ..
+              ]);
+
+        return $post;
     }
 
 
