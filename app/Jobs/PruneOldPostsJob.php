@@ -19,11 +19,11 @@ class PruneOldPostsJob implements ShouldQueue
      *
      * @return void
      */
-    protected $post;
+    protected $posts;     //$post
 
-    public function __construct(Post $post)
-    {
-        $this->post = $post;
+    public function __construct($posts)   //Post $post
+    { 
+        $this->posts = $posts;      //$this->post = $post
     }
 
     /**
@@ -33,7 +33,10 @@ class PruneOldPostsJob implements ShouldQueue
      */
     public function handle()
     {
-       Post::where('created_at', '<', now()->subMinute()->delete());
-                    
+       Post::where('created_at', '<', now()->subMinute())->chunck(2, function($posts){      //get....
+            $posts->each(function($item){
+                $item->delete();
+            });
+       } );              
     }
 }
