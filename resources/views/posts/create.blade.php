@@ -5,7 +5,7 @@
 
 @section('content')
 
-<form class="m-5" method="POST" action="{{route('posts.store')}}">
+<form class="m-5" method="POST" action="{{route('posts.store')}}" enctype="multipart/form-data">
 @csrf
   <div class="mb-3">
     <label for="title" class="form-label">Title</label>
