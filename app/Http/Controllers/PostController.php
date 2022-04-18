@@ -19,7 +19,6 @@ class PostController extends Controller
         $post = Post::get()->first();
         // dd($posts);
         // PruneOldPostsJob::dispatch($post)->delay(now()->addMinutes(10));
-
         return view('posts.index', ["posts"=>$posts]);
 
     }

@@ -33,10 +33,7 @@ class PruneOldPostsJob implements ShouldQueue
      */
     public function handle()
     {
-       Post::where('created_at', '>', now()->subMinute())->chunck(2, function($post){      //get....
-            $post->each(function($item){
-                $item->delete();
-            });
-       } );              
+       Post::where('created_at', '<', now()->subMinute()->delete());
+                    
     }
 }

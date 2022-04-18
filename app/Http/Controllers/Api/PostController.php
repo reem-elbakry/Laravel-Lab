@@ -6,22 +6,22 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Http\Requests\FormPostRequest;
-
+use App\Http\Resources\PostResource;
 
 class PostController extends Controller
 {
     public function index(){
 
-        return Post::all();
+        $posts = Post::all();
+
+        return new PostResource($posts);
     }
 
     public function show($postId){
 
         $post = Post::findOrFail($postId);
 
-        return [
-            "title" => $post->title,    ///not tight key
-        ] ;
+        return new PostResource($post);
     }
 
 
