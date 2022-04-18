@@ -48,7 +48,7 @@ class PostController extends Controller
                 'title' => $data['title'],
                 'description' => $data['description'],
                 'user_id' => $data['post_creator'],  //value of option is user id ..
-                'image' => $data['image'],
+                'image' => $image_name,
         ]);
         // PruneOldPostsJob::dispatch($post)->delay(now()->addMinutes(10));
 
