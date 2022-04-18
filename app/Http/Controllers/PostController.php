@@ -18,7 +18,7 @@ class PostController extends Controller
         $posts = Post::paginate(100);   //colletion 
         $post = Post::get()->first();
         // dd($posts);
-        PruneOldPostsJob::dispatch($post)->delay(now()->addMinutes(10));
+        // PruneOldPostsJob::dispatch($post)->delay(now()->addMinutes(10));
 
         return view('posts.index', ["posts"=>$posts]);
 
