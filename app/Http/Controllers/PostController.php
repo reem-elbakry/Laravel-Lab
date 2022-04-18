@@ -16,7 +16,10 @@ class PostController extends Controller
     public function index(){
 
         $posts = Post::paginate(1);   //colletion 
-        PruneOldPostsJob::dispatch($posts)->delay(now()->addMinutes(10));
+        $post = Post::get()->first();
+        // dd($posts);
+        PruneOldPostsJob::dispatch($post)->delay(now()->addMinutes(10));
+
         return view('posts.index', ["posts"=>$posts]);
 
     }
@@ -38,11 +41,13 @@ class PostController extends Controller
 
         //request() return obj which has methods on it >> all() ..
         $data = request()->all();
-        Post::create([
+        $post = Post::create([
                 'title' => $data['title'],
                 'description' => $data['description'],
                 'user_id' => $data['post_creator'],  //value of option is user id ..
         ]);
+        // PruneOldPostsJob::dispatch($post)->delay(now()->addMinutes(10));
+
         return redirect()->route('posts.index');
 
     }

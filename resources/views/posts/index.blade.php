@@ -49,10 +49,7 @@
       </tbody>
     </table>
   </div>
-  <div>
-</div>
 {{$posts->links()}}
-
 </div>
 
 
