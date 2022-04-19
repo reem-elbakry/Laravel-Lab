@@ -13,7 +13,7 @@ class PostController extends Controller
     public function index(){
 
         $posts = Post::all();
-        
+
         return PostResource::collection($posts);
     }
 
@@ -39,7 +39,7 @@ class PostController extends Controller
                     'user_id' => $data['post_creator'],  //value of option is user id ..
               ]);
 
-        return $post;
+        return new PostResource($post);            
     }
 
 

@@ -30,7 +30,6 @@
           <td>{{$post->user ? $post->user->name : 'Not found'}}</td>
           <td>{{$post->created_at->format('Y-m-d')}}</td>
           <td>{{$post->slug}}</td>
-            {{$post->image}}
           <td><img src="{{asset('/storage/images/posts/'.$post->image)}}" alt="" width="50px" height="50px"/></td>
           <td>
         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
@@ -52,6 +51,7 @@
       </tbody>
     </table>
   <!-- </div> -->
+{{$posts->links()}}
 <!-- </div> -->
 
 
