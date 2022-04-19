@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use Laravel\Socialite\Facades\Socialite;
+use App\Models\User;
 
 
 /*
@@ -52,3 +54,35 @@ Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->nam
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+ 
+Route::get('/auth/github/redirect', function () {
+    return Socialite::driver('github')->redirect();
+});
+ 
+Route::get('/auth/github/callback', function () {
+
+    $githubUser = Socialite::driver('github')->user();
+ 
+    $user = User::where('github_id', $githubUser->id)->first();
+ 
+    if ($user) {
+        $user->update([
+            'github_token' => $githubUser->token,
+            'github_refresh_token' => $githubUser->refreshToken,
+        ]);
+    } else {
+        $user = User::create([
+            'name' => $githubUser->name,
+            'email' => $githubUser->email,
+            'github_id' => $githubUser->id,
+            'github_token' => $githubUser->token,
+            'github_refresh_token' => $githubUser->refreshToken,
+        ]);
+    }
+ 
+    Auth::login($user);
+ 
+    return redirect('/posts');
+});

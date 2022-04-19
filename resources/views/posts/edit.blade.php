@@ -3,7 +3,7 @@
   Edit post
 @endsection
 @section('content')
-<form class="m-5" method="POST" action="{{route('posts.show', ['post' => $post['id']])}}">
+<form class="m-5" method="POST" action="{{route('posts.show', ['post' => $post['id']])}}" enctype="multipart/form-data">
 @csrf
 @method('patch')
   <div class="mb-3">
