@@ -43,21 +43,4 @@ class PostController extends Controller
     }
 
 
-
-    public function update($id, FormPostRequest $request){
-
-        $data = request()->all();
-        Post::where('id', $id)
-        ->update(['title' => $data['title'], 'description' => $data['description'], 'user_id' => $data['post_creator']]);
-
-        return redirect()->route('posts.index');
-    }
-    
-    public function destroy($id){
-        $post = Post::findOrFail($id);
-        $post->delete();
-        return redirect()->route('posts.index');
-
-    }
-
 }

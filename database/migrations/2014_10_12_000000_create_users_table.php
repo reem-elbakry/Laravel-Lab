@@ -20,9 +20,12 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->rememberToken();
-            $table->string('github_id')->nullable();
+            $table->unsignedBigInteger('github_id')->nullable();
             $table->string('github_token')->nullable();
             $table->string('github_refresh_token')->nullable();
+            $table->unsignedBigInteger('google_id')->nullable();
+            $table->string('google_token')->nullable();
+            $table->string('google_refresh_token')->nullable();
             $table->timestamps();
         });
     }

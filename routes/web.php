@@ -56,11 +56,11 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
- 
+//  github 
 Route::get('/auth/github/redirect', function () {
     return Socialite::driver('github')->redirect();
 });
- 
+
 Route::get('/auth/github/callback', function () {
 
     $githubUser = Socialite::driver('github')->user();
@@ -86,3 +86,34 @@ Route::get('/auth/github/callback', function () {
  
     return redirect('/posts');
 });
+
+//google
+Route::get('/auth/google/redirect', function () {
+
+    return Socialite::driver('google')->redirect();
+
+});
+
+Route::get('/auth/google/callback', function () {
+
+    $googleUser = Socialite::driver('google')->user();
+    $user = User::where('google_id', $googleUser->id)->first();
+    if ($user) {
+    $user->update([
+    'google_token' => $googleUser->token,
+    'google_refresh_token' => $googleUser->refreshToken,
+    ]);
+    } else {
+    $user = User::create([
+    'name' => $googleUser->name,
+    'email' => $googleUser->email,
+    'google_id' => $googleUser->id,
+    'google_token' => $googleUser->token,
+    'google_refresh_token' => $googleUser->refreshToken,
+    ]);
+    }
+    Auth::login($user);
+    return redirect('/posts');
+});
+    
+
