@@ -15,10 +15,11 @@ class PostController extends Controller
     
     public function index(){
 
-        $posts = Post::paginate(100);   //colletion 
+        // $posts = Post::paginate(100);   //colletion 
         // $posts = Post::all();
         // dd($posts);
         // PruneOldPostsJob::dispatch($posts);
+        $posts = Post::with('user')->get();
         return view('posts.index', ["posts"=>$posts]);
 
     }
