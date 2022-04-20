@@ -33,7 +33,7 @@ class FormPostRequest extends FormRequest
             'title' => ['required', 'unique:posts,title,'.$this->title.',title', 'min:3'],
             'description' => ['required', 'min:10'],
             'post_creator' => ['exists:App\Models\User,id'],
-            
+            'image' => ['required', 'mimes:jpg,png'], 
         ];
     }
 
